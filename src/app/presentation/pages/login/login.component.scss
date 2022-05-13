@@ -1,0 +1,48 @@
+@import 'src/scss/variables';
+
+.container {
+    height: 100vh;
+    background-color: $primary-color;
+    color: $neutral-color;
+}
+
+.wrapper {
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+    max-width: 960px;
+}
+
+.logo {
+    border-right: 1px solid $primary-color-dark;
+    padding: 50px 10% 50px 10%;
+}
+
+.logo__circles {
+    height: 10px;
+    width: 10px;
+    border-radius: 50%;
+    background-color: $secondary-color;
+    display: inline-block;
+    box-shadow:
+        20px 0px 0px darken($secondary-color, 5%),
+        0px 20px 0px darken($secondary-color, 30%),
+        20px 20px 0px darken($secondary-color, 25%);
+    position: relative;
+    top: -15px;
+    left: -30px
+}
+
+.logo__title {
+    font-size: 3rem;
+    display: inline;
+}
+
+.form-container {
+    padding: 50px 0 50px 10%;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+}
