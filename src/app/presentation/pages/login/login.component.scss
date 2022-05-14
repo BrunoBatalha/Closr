@@ -1,48 +1,178 @@
 @import 'src/scss/variables';
+@import 'src/scss/mixins';
 
 .container {
-    height: 100vh;
+    // min-width: 500px;
+    min-height: 100vh;
     background-color: $primary-color;
     color: $neutral-color;
+    display: flex;
+    align-items: center;
 }
 
 .wrapper {
     display: flex;
     justify-content: center;
-    margin: 0 auto;
-    max-width: 960px;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 100%;
 }
 
 .logo {
     border-right: 1px solid $primary-color-dark;
-    padding: 50px 10% 50px 10%;
-}
+    padding-right: 100px;
+    padding-left: 100px;
+    height: 270px;
+    display: flex;
+    align-items: center;
+    flex: 1 1 300px;
 
-.logo__circles {
-    height: 10px;
-    width: 10px;
-    border-radius: 50%;
-    background-color: $secondary-color;
-    display: inline-block;
-    box-shadow:
-        20px 0px 0px darken($secondary-color, 5%),
-        0px 20px 0px darken($secondary-color, 30%),
-        20px 20px 0px darken($secondary-color, 25%);
-    position: relative;
-    top: -15px;
-    left: -30px
+    @include device(xs) {
+        flex-direction: column;
+        height: 100px;
+        margin-top: 90px;
+    }
+
+    @include device(sm) {
+        justify-content: center;
+        height: 100px;
+    }
+
+    @include device(lg) {
+        justify-content: flex-end;
+        height: 270px;
+    }
 }
 
 .logo__title {
-    font-size: 3rem;
-    display: inline;
+    font-size: 8rem;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 400;
+    letter-spacing: -.6rem;
 }
 
+.logo__circles {
+    height: 18px;
+    width: 18px;
+    border-radius: 50%;
+    display: inline-block;
+    background-color: transparent;
+    box-shadow:
+        0px 20px 0px $secondary-color,
+        35px 20px 0px darken($secondary-color, 10%),
+        0px 55px 0px darken($secondary-color, 30%),
+        35px 55px 0px darken($secondary-color, 25%);
+    position: relative;
+    left: -40px;
+    top: -10px;
+    margin-top: -20px;
+    animation: shine-circles 4s infinite;
+
+    @include device(xs) {
+        top: -100px;
+        left: -20px;
+    }
+}
+
+
+@keyframes shine-circles {
+    0% {
+        box-shadow:
+            0px 20px 0px $secondary-color,
+            35px 20px 0px darken($secondary-color, 10%),
+            0px 55px 0px darken($secondary-color, 30%),
+            35px 55px 0px darken($secondary-color, 25%);
+    }
+
+    25% {
+        box-shadow:
+            0px 55px 0px darken($secondary-color, 30%),
+            0px 20px 0px $secondary-color,
+            35px 55px 0px darken($secondary-color, 25%),
+            35px 20px 0px darken($secondary-color, 10%);
+    }
+
+    50% {
+        box-shadow:
+            35px 55px 0px darken($secondary-color, 25%),
+            0px 55px 0px darken($secondary-color, 30%),
+            35px 20px 0px darken($secondary-color, 10%),
+            0px 20px 0px $secondary-color;
+    }
+
+    75% {
+        box-shadow:
+            35px 20px 0px darken($secondary-color, 10%),
+            35px 55px 0px darken($secondary-color, 25%),
+            0px 20px 0px $secondary-color,
+            0px 55px 0px darken($secondary-color, 30%);
+    }
+}
+
+
 .form-container {
-    padding: 50px 0 50px 10%;
+    padding-top: 40px;
+    padding-left: 100px;
+    padding-right: 100px;
+    flex: 1.5;
 }
 
 .form {
     display: flex;
     flex-direction: column;
+
+    max-width: 400px;
+
+    @include device(sm) {
+        max-width: 100%;
+    }
+
+    @include device(lg) {
+        max-width: 400px;
+    }
+}
+
+.form__field {
+    border-radius: 5px;
+    background-color: transparent;
+    height: 50px;
+    color: darken($neutral-color, 15%);
+    padding: 8px 16px;
+    border: 2px solid $primary-color-dark;
+}
+
+.form__field:focus {
+    border: 2px solid $secondary-color;
+}
+
+.form__field:first-child {
+    margin-bottom: 30px;
+}
+
+.form__field:last-of-type {
+    margin-bottom: 50px;
+}
+
+.form__btn-submit {
+    background-color: $secondary-color;
+    color: $neutral-color;
+    height: 50px;
+    border-radius: 5px;
+    margin-bottom: 50px;
+    text-transform: uppercase;
+    transition: background-color .2s;
+}
+
+.form__btn-submit:hover {
+    background-color: darken($secondary-color, 10);
+}
+
+.form__footer {
+    display: flex;
+    justify-content: space-between;
+    color: lighten($primary-color-dark, 10);
+}
+
+.form__link {
+    color: lighten($primary-color-dark, 10);
 }
