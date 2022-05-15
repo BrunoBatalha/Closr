@@ -1,23 +1,12 @@
-<div class="container">
-    <div class="wrapper">
-        <aside class="logo">
-            <span class="logo__circles"></span>
-            <h1 class="logo__title">closr</h1>
-        </aside>
+<form class="form">
+    <input class="form__field" type="text" placeholder="Email" autocomplete="none">
+    <input class="form__field" type="password" placeholder="Password">
 
-        <main class="form-container">
-            <form class="form">
-                <input class="form__field" type="text" placeholder="Email" autocomplete="none">
-                <input class="form__field" type="password" placeholder="Password" >
+    <button class="form__btn-submit">connect</button>
 
-                <button class="form__btn-submit">connect</button>
-
-                <footer class="form__footer">
-                    <a href="#" class="form__link">Forgot your password</a>
-                    <span>-</span>
-                    <a href="#" class="form__link">Question?</a>
-                </footer>
-            </form>
-        </main>
-    </div>
-</div>
+    <footer class="form__footer">
+        <a href="#" class="form__link">Forgot your password</a>
+        <span>-</span>
+        <a [routerLink]="['/register']" class="form__link">Register</a>
+    </footer>
+</form>

@@ -1,0 +1,17 @@
+<form [formGroup]="reactiveForm" (ngSubmit)="onSubmit()" class="form">
+    <input formControlName="email" class="form__field" type="email" placeholder="Email" autocomplete="none">
+    <div *ngIf="reactiveForm.controls.email.errors?.['required'] && 
+                reactiveForm.controls.email.invalid && 
+                (reactiveForm.controls.email.dirty || reactiveForm.controls.email.touched)">
+        Name is required.
+      </div>
+    
+    <input formControlName="password" class="form__field" type="password" placeholder="Password">
+    <input formControlName="confirmPassword"class="form__field" type="password" placeholder="Confirm password">
+
+    <button class="form__btn-submit">register</button>
+
+    <footer class="form__footer">
+        <a [routerLink]="['/']" class="form__link">Back</a>
+    </footer>
+</form>

@@ -1,0 +1,22 @@
+@import 'src/scss/variables';
+
+input {
+    border-radius: 5px;
+    background-color: transparent;
+    height: 50px;
+    color: darken($neutral-color, 15%);
+    padding: 8px 16px;
+    border: 2px solid $primary-color-dark;
+}
+
+input:focus {
+    border: 2px solid $secondary-color;
+}
+
+input {
+    margin-bottom: 30px;
+}
+
+input:last-of-type {
+    margin-bottom: 50px;
+}
