@@ -1,17 +1,35 @@
 <form [formGroup]="reactiveForm" (ngSubmit)="onSubmit()" class="form">
-    <input formControlName="email" class="form__field" type="email" placeholder="Email" autocomplete="none">
+  <input formControlName="email" class="form__field" type="email" placeholder="Email" autocomplete="none">
+  <div class="form__error-wrapper">
     <div *ngIf="reactiveForm.controls.email.errors?.['required'] && 
-                reactiveForm.controls.email.invalid && 
-                (reactiveForm.controls.email.dirty || reactiveForm.controls.email.touched)">
-        Name is required.
-      </div>
-    
-    <input formControlName="password" class="form__field" type="password" placeholder="Password">
-    <input formControlName="confirmPassword"class="form__field" type="password" placeholder="Confirm password">
+      reactiveForm.controls.email.invalid && 
+      (reactiveForm.controls.email.dirty || reactiveForm.controls.email.touched)" class="form__error">
+      Email is required.
+    </div>
+  </div>
 
-    <button class="form__btn-submit">register</button>
+  <input formControlName="password" class="form__field" type="password" placeholder="Password">
+  <div class="form__error-wrapper">
+    <div *ngIf="reactiveForm.controls.password.errors?.['required'] && 
+      reactiveForm.controls.password.invalid && 
+      (reactiveForm.controls.password.dirty || reactiveForm.controls.password.touched)" class="form__error">
+      Password is required.
+    </div>
+  </div>
 
-    <footer class="form__footer">
-        <a [routerLink]="['/']" class="form__link">Back</a>
-    </footer>
+  <input formControlName="confirmPassword" class="form__field" type="password" placeholder="Confirm password">
+  <div class="form__error-wrapper">
+    <div *ngIf="reactiveForm.controls.confirmPassword.errors?.['required'] && 
+    reactiveForm.controls.confirmPassword.invalid && 
+    (reactiveForm.controls.confirmPassword.dirty || reactiveForm.controls.confirmPassword.touched)"
+      class="form__error">
+      Confirm Password is required.
+    </div>
+  </div>
+
+  <button class="form__btn-submit">register</button>
+
+  <footer class="form__footer">
+    <a [routerLink]="['/']" class="form__link">Back</a>
+  </footer>
 </form>
