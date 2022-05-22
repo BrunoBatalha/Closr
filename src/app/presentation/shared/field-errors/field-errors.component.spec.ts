@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { RegisterComponent } from './register.component';
+import { FieldErrorsComponent } from './field-errors.component';
 
-describe('RegisterComponent', () => {
-	let component: RegisterComponent;
-	let fixture: ComponentFixture<RegisterComponent>;
+describe('FieldErrorsComponent', () => {
+	let component: FieldErrorsComponent;
+	let fixture: ComponentFixture<FieldErrorsComponent>;
 
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
-			declarations: [RegisterComponent]
+			declarations: [FieldErrorsComponent]
 		}).compileComponents();
 	});
 
 	beforeEach(() => {
-		fixture = TestBed.createComponent(RegisterComponent);
+		fixture = TestBed.createComponent(FieldErrorsComponent);
 		component = fixture.componentInstance;
 		fixture.detectChanges();
 	});

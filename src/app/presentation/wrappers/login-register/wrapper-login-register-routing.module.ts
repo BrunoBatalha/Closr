@@ -9,18 +9,24 @@ const routes: Routes = [
 		children: [
 			{
 				path: '',
-				loadChildren: () => import('src/app/presentation/pages/login/login.module').then((m) => m.LoginModule),
+				loadChildren: () =>
+					import('src/app/presentation/pages/login/login.module').then(
+						(m) => m.LoginModule
+					)
 			},
 			{
 				path: 'register',
-				loadChildren: () => import('src/app/presentation/pages/register/register.module').then((m) => m.RegisterModule),
-			},
-		],
-	},
+				loadChildren: () =>
+					import('src/app/presentation/pages/register/register.module').then(
+						(m) => m.RegisterModule
+					)
+			}
+		]
+	}
 ];
 
 @NgModule({
 	imports: [RouterModule.forChild(routes)],
-	exports: [RouterModule],
+	exports: [RouterModule]
 })
 export class WrapperLoginRegisterRoutingModule {}

@@ -59,18 +59,3 @@
 .form__link {
     color: lighten($primary-color-dark, 10);
 }
-
-.form__error-wrapper {
-    color: #d57070;
-    font-size: .8rem;
-    padding-left: 5px;
-    line-height: 1.5rem;
-}
-
-.form__error:first-of-type{
-    margin-top: -30px;
-}
-
-.form__error:last-of-type{
-    margin-bottom: 10px;
-}

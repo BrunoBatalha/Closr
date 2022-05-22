@@ -6,6 +6,6 @@ import { WrapperLoginRegisterComponent } from './wrapper-login-register.componen
 
 @NgModule({
 	declarations: [WrapperLoginRegisterComponent],
-	imports: [CommonModule, WrapperLoginRegisterRoutingModule, LoginModule],
+	imports: [CommonModule, WrapperLoginRegisterRoutingModule, LoginModule]
 })
 export class WrapperLoginRegisterModule {}
