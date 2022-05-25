@@ -9,17 +9,11 @@ const routes: Routes = [
 		children: [
 			{
 				path: '',
-				loadChildren: () =>
-					import('src/app/presentation/pages/login/login.module').then(
-						(m) => m.LoginModule
-					)
+				loadChildren: () => import('src/app/presentation/pages/login/login.module').then((m) => m.LoginModule)
 			},
 			{
 				path: 'register',
-				loadChildren: () =>
-					import('src/app/presentation/pages/register/register.module').then(
-						(m) => m.RegisterModule
-					)
+				loadChildren: () => import('src/app/presentation/pages/register/register.module').then((m) => m.RegisterModule)
 			}
 		]
 	}

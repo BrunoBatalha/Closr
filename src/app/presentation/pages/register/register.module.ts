@@ -7,12 +7,6 @@ import { RegisterComponent } from './register.component';
 
 @NgModule({
 	declarations: [RegisterComponent],
-	imports: [
-		CommonModule,
-		RegisterRoutingModule,
-		ReactiveFormsModule,
-		FormsModule,
-		InputModule
-	]
+	imports: [CommonModule, RegisterRoutingModule, ReactiveFormsModule, FormsModule, InputModule]
 })
 export class RegisterModule {}

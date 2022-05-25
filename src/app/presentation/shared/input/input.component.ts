@@ -1,11 +1,5 @@
 import { Component, Input } from '@angular/core';
-import {
-	AbstractControl,
-	ControlValueAccessor,
-	FormControl,
-	FormGroup,
-	NG_VALUE_ACCESSOR
-} from '@angular/forms';
+import { AbstractControl, ControlValueAccessor, FormControl, FormGroup, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 @Component({
 	selector: 'app-input',
@@ -34,12 +28,12 @@ export class InputComponent implements ControlValueAccessor {
 
 	onChanged!: (_: string) => void;
 	onTouched!: () => void;
-	onValidate!: () => void;
 
 	changedValue(event: Event): void {
-		this.onChanged((event.target as HTMLInputElement).value);
-		this.errors = Object.keys(this.formControl.errors || {});
-		console.log(this.formControl.errors);
+		if (this.onChanged) {
+			this.onChanged((event.target as HTMLInputElement).value);
+			this.errors = Object.keys(this.formControl.errors || {});
+		}
 	}
 
 	writeValue(newValue: any): void {
@@ -52,9 +46,5 @@ export class InputComponent implements ControlValueAccessor {
 
 	registerOnTouched(onTouched: any): void {
 		this.onTouched = onTouched;
-	}
-
-	registerOnValidatorChange(onValidate: any): void {
-		this.onValidate = onValidate;
 	}
 }

@@ -1,10 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {
-	FormControl,
-	FormGroup,
-	ValidatorFn,
-	Validators
-} from '@angular/forms';
+import { FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 
 interface FormFields {
 	email: string;
@@ -30,10 +25,7 @@ export class RegisterComponent implements OnInit {
 	reactiveForm!: FieldsGroup;
 	ngOnInit(): void {
 		this.reactiveForm = new FormGroup({
-			username: new FormControl('', [
-				...this.validatesCommons,
-				Validators.minLength(5)
-			]),
+			username: new FormControl('', [...this.validatesCommons, Validators.minLength(5)]),
 			email: new FormControl('', [...this.validatesCommons, Validators.email]),
 			password: new FormControl('', [...this.validatesCommons]),
 			confirmPassword: new FormControl('', [...this.validatesCommons])

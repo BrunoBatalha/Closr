@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { FormControl } from '@angular/forms';
 import { FieldErrorsComponent } from './field-errors.component';
 
 describe('FieldErrorsComponent', () => {
@@ -10,11 +10,9 @@ describe('FieldErrorsComponent', () => {
 		await TestBed.configureTestingModule({
 			declarations: [FieldErrorsComponent]
 		}).compileComponents();
-	});
-
-	beforeEach(() => {
 		fixture = TestBed.createComponent(FieldErrorsComponent);
 		component = fixture.componentInstance;
+		component.formControl = new FormControl('');
 		fixture.detectChanges();
 	});
 

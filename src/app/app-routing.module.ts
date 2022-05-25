@@ -5,9 +5,9 @@ const routes: Routes = [
 	{
 		path: '',
 		loadChildren: () =>
-			import(
-				'./presentation/wrappers/login-register/wrapper-login-register.module'
-			).then((m) => m.WrapperLoginRegisterModule)
+			import('./presentation/wrappers/login-register/wrapper-login-register.module').then(
+				(m) => m.WrapperLoginRegisterModule
+			)
 	}
 ];
 
