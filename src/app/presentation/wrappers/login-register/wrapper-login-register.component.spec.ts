@@ -7,7 +7,7 @@ describe('WrapperLoginRegisterComponent', () => {
 
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
-			declarations: [WrapperLoginRegisterComponent],
+			declarations: [WrapperLoginRegisterComponent]
 		}).compileComponents();
 	});
 

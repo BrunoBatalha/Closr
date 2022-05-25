@@ -1,0 +1,24 @@
+<div
+    class="error-wrapper"
+    *ngIf="formControl.invalid && formControl.dirty && formControl.touched"
+>
+    <span
+        *ngIf="formControl.hasError('email')"
+        class="error"
+    >
+        Email is invalid.
+    </span>
+    <span
+        *ngIf="formControl.hasError('required')"
+        class="error"
+    >
+        Field is required.
+    </span>
+    <span
+        *ngIf="formControl.hasError('minlength')"
+        class="error"
+    >
+        Minimum characters is {{formControl.errors?.['minlength'].requiredLength}}.
+    </span>
+
+</div>

@@ -34,9 +34,6 @@
     margin-bottom: 30px;
 }
 
-.form__field:last-of-type {
-    margin-bottom: 50px;
-}
 
 .form__btn-submit {
     background-color: $secondary-color;
@@ -44,6 +41,7 @@
     height: 50px;
     border-radius: 5px;
     margin-bottom: 50px;
+    margin-top: 20px;
     text-transform: uppercase;
     transition: background-color .2s;
 }

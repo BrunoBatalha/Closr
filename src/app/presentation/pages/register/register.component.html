@@ -1,17 +1,50 @@
-<form [formGroup]="reactiveForm" (ngSubmit)="onSubmit()" class="form">
-    <input formControlName="email" class="form__field" type="email" placeholder="Email" autocomplete="none">
-    <div *ngIf="reactiveForm.controls.email.errors?.['required'] && 
-                reactiveForm.controls.email.invalid && 
-                (reactiveForm.controls.email.dirty || reactiveForm.controls.email.touched)">
-        Name is required.
-      </div>
-    
-    <input formControlName="password" class="form__field" type="password" placeholder="Password">
-    <input formControlName="confirmPassword"class="form__field" type="password" placeholder="Confirm password">
+<form
+    [formGroup]="reactiveForm"
+    (ngSubmit)="onSubmit()"
+    class="form"
+>
+    <app-input
+        [parentFormGroup]="reactiveForm"
+        fieldName="username"
+        formControlName="username"
+        placeholder="Username"
+        [autofocus]="true"
+    ></app-input>
 
-    <button class="form__btn-submit">register</button>
+    <app-input
+        [parentFormGroup]="reactiveForm"
+        fieldName="email"
+        formControlName="email"
+        placeholder="Email"
+    ></app-input>
+
+    <app-input
+        [parentFormGroup]="reactiveForm"
+        fieldName="password"
+        formControlName="password"
+        placeholder="Password"
+    ></app-input>
+
+    <app-input
+        [parentFormGroup]="reactiveForm"
+        fieldName="confirmPassword"
+        formControlName="confirmPassword"
+        placeholder="Confirm password"
+    ></app-input>
+
+    <button
+        class="form__btn-submit"
+        [disabled]="reactiveForm.invalid"
+    >
+        register
+    </button>
 
     <footer class="form__footer">
-        <a [routerLink]="['/']" class="form__link">Back</a>
+        <a
+            [routerLink]="['/']"
+            class="form__link"
+        >
+            Back
+        </a>
     </footer>
 </form>

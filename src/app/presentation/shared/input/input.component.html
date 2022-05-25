@@ -1,1 +1,12 @@
-<!-- <input type="{{type}}" placeholder="{{placeholder}}" autocomplete="none" [(ngModel)]="value"> -->
+<div class="wrapper">
+    <input
+        placeholder="{{placeholder}}"
+        autocomplete="none"
+        [value]="value"
+        (blur)="onTouched()"
+        (input)="changedValue($event)"
+        [appCustomAutofocus]="autofocus"
+    >
+
+    <app-field-errors [formControl]="formControl"></app-field-errors>
+</div>
