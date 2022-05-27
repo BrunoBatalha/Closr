@@ -1,5 +1,6 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { AbstractControl, ControlValueAccessor, FormControl, FormGroup, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { faEye, faEyeSlash } from '@fortawesome/free-regular-svg-icons';
 
 @Component({
 	selector: 'app-input',
@@ -13,15 +14,18 @@ import { AbstractControl, ControlValueAccessor, FormControl, FormGroup, NG_VALUE
 		}
 	]
 })
-export class InputComponent implements ControlValueAccessor {
+export class InputComponent implements ControlValueAccessor, OnInit {
 	@Input() parentFormGroup!: FormGroup;
 	@Input() fieldName!: string;
 	@Input() placeholder!: string;
+	@Input() type?: string;
 	@Input() autofocus: boolean = false;
-
 	errors: string[] = [];
 	control: AbstractControl | undefined;
 	value!: string;
+	initialType?: string;
+	iconPassword = faEyeSlash;
+
 	get formControl(): FormControl {
 		return this.parentFormGroup.get(this.fieldName) as FormControl;
 	}
@@ -29,10 +33,24 @@ export class InputComponent implements ControlValueAccessor {
 	onChanged!: (_: string) => void;
 	onTouched!: () => void;
 
+	ngOnInit(): void {
+		this.initialType = this.type;
+	}
+
 	changedValue(event: Event): void {
 		if (this.onChanged) {
 			this.onChanged((event.target as HTMLInputElement).value);
 			this.errors = Object.keys(this.formControl.errors || {});
+		}
+	}
+
+	togglePassword(): void {
+		if (this.type === 'password') {
+			this.type = 'text';
+			this.iconPassword = faEye;
+		} else {
+			this.type = 'password';
+			this.iconPassword = faEyeSlash;
 		}
 	}
 

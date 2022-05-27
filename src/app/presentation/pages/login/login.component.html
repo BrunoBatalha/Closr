@@ -1,12 +1,38 @@
-<form class="form">
-    <input class="form__field" type="text" placeholder="Email" autocomplete="none">
-    <input class="form__field" type="password" placeholder="Password">
+<form
+    class="form"
+    [formGroup]="reactiveForm"
+>
+    <app-input
+        [parentFormGroup]="reactiveForm"
+        fieldName="email"
+        formControlName="email"
+        placeholder="Email"
+        [autofocus]="true"
+    ></app-input>
+
+    <app-input
+        [parentFormGroup]="reactiveForm"
+        fieldName="password"
+        formControlName="password"
+        placeholder="Password"
+        type="password"
+    ></app-input>
 
     <button class="form__btn-submit">connect</button>
 
     <footer class="form__footer">
-        <a href="#" class="form__link">Forgot your password</a>
+        <a
+            href="#"
+            class="form__link"
+        >
+            Forgot your password
+        </a>
         <span>-</span>
-        <a [routerLink]="['/register']" class="form__link">Register</a>
+        <a
+            [routerLink]="['/register']"
+            class="form__link"
+        >
+            Register
+        </a>
     </footer>
 </form>

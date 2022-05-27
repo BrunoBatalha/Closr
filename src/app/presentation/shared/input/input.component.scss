@@ -2,23 +2,36 @@
 
 
 .wrapper {
-    display: flex;
-    flex-direction: column;
+	display: flex;
+	flex-direction: column;
 }
 
 input {
-    border-radius: 5px;
-    background-color: transparent;
-    height: 50px;
-    color: darken($neutral-color, 15%);
-    padding: 8px 16px;
-    border: 2px solid $primary-color-dark;
+	border-radius: 5px;
+	background-color: transparent;
+	height: 50px;
+	color: darken($neutral-color, 15%);
+	padding: 8px 16px;
+	border: 2px solid $primary-color-dark;
+	margin-bottom: 30px;
+	width: 100%;
 }
 
 input:focus {
-    border: 2px solid $secondary-color;
+	border: 2px solid $secondary-color;
 }
 
-input {
-    margin-bottom: 30px;
+.input-password {
+	padding-right: 38px;
+}
+
+fa-icon {
+	position: absolute;
+	right: 14px;
+	top: 18px;
+	color: scale-color($neutral-color, $alpha: -30%);
+}
+
+.input-container {
+	position: relative
 }
