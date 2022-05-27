@@ -1,12 +1,23 @@
 <div class="wrapper">
-    <input
-        placeholder="{{placeholder}}"
-        autocomplete="none"
-        [value]="value"
-        (blur)="onTouched()"
-        (input)="changedValue($event)"
-        [appCustomAutofocus]="autofocus"
-    >
+    <div class="input-container">
+        <input
+            placeholder="{{placeholder}}"
+            autocomplete="none"
+            [type]="type"
+            [value]="value"
+            (blur)="onTouched()"
+            (input)="changedValue($event)"
+            [appCustomAutofocus]="autofocus"
+            [class.input-password]="initialType === 'password'"
+        >
+
+        <button
+            (click)="togglePassword()"
+            *ngIf="initialType === 'password'"
+        >
+            <fa-icon [icon]="iconPassword"></fa-icon>
+        </button>
+    </div>
 
     <app-field-errors [formControl]="formControl"></app-field-errors>
 </div>

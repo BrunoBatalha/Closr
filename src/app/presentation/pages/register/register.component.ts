@@ -1,36 +1,20 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
-
-interface FormFields {
-	email: string;
-	password: string;
-	confirmPassword: string;
-}
-
-interface FieldsGroup extends FormGroup {
-	value: FormFields;
-	controls: {
-		[key in keyof FormFields]: FormControl;
-	};
-}
+import { Component } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { GenericFormGroup } from 'src/app/core/interfaces/forms/GenericFormGroup';
+import { RegisterFields } from 'src/app/core/interfaces/forms/RegisterFields';
 
 @Component({
 	selector: 'app-register',
 	templateUrl: './register.component.html',
 	styleUrls: ['./register.component.scss']
 })
-export class RegisterComponent implements OnInit {
-	private validatesCommons: ValidatorFn[] = [Validators.required];
-
-	reactiveForm!: FieldsGroup;
-	ngOnInit(): void {
-		this.reactiveForm = new FormGroup({
-			username: new FormControl('', [...this.validatesCommons, Validators.minLength(5)]),
-			email: new FormControl('', [...this.validatesCommons, Validators.email]),
-			password: new FormControl('', [...this.validatesCommons]),
-			confirmPassword: new FormControl('', [...this.validatesCommons])
-		}) as FieldsGroup;
-	}
+export class RegisterComponent {
+	reactiveForm: GenericFormGroup<RegisterFields> = new FormGroup({
+		username: new FormControl('', [Validators.required, Validators.minLength(5)]),
+		email: new FormControl('', [Validators.required, Validators.email]),
+		password: new FormControl('', [Validators.required, Validators.minLength(8)]),
+		confirmPassword: new FormControl('', [Validators.required, Validators.minLength(8)])
+	}) as GenericFormGroup<RegisterFields>;
 
 	onSubmit(): void {
 		console.log('--------------START-SUBMIT--------------');

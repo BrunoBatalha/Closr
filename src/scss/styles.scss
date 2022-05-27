@@ -2,3 +2,8 @@
 @import 'reset';
 @import 'variables';
 @import 'mixins';
+
+input::-ms-reveal,
+input::-ms-clear {
+	display: none;
+}

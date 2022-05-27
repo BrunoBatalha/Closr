@@ -12,6 +12,5 @@
 	"html.format.enable": false,
 	// enable formatting by default
 	"editor.formatOnSave": true,
-	"editor.formatOnPaste": true
-	// "html.format.wrapAttributes": "force"
+	"editor.formatOnPaste": true,
 }
