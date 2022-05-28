@@ -25,6 +25,7 @@ export class InputComponent implements ControlValueAccessor, OnInit {
 	value!: string;
 	initialType?: string;
 	iconPassword = faEyeSlash;
+	disabled: boolean = false;
 
 	get formControl(): FormControl {
 		return this.parentFormGroup.get(this.fieldName) as FormControl;
@@ -38,6 +39,7 @@ export class InputComponent implements ControlValueAccessor, OnInit {
 	}
 
 	changedValue(event: Event): void {
+		console.log(this.formControl.errors);
 		if (this.onChanged) {
 			this.onChanged((event.target as HTMLInputElement).value);
 			this.errors = Object.keys(this.formControl.errors || {});
@@ -64,5 +66,9 @@ export class InputComponent implements ControlValueAccessor, OnInit {
 
 	registerOnTouched(onTouched: any): void {
 		this.onTouched = onTouched;
+	}
+
+	setDisabledState(isDisabled: boolean): void {
+		this.disabled = isDisabled;
 	}
 }

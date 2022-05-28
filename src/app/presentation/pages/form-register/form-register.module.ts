@@ -4,12 +4,12 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 import { ButtonModule } from '../../shared/components/button/button.module';
 import { InputModule } from '../../shared/components/input/input.module';
-import { LoginComponent } from './login.component';
+import { FormRegisterComponent } from './form-register.component';
 
-const routes: Routes = [{ path: '', component: LoginComponent }];
+const routes: Routes = [{ path: '', component: FormRegisterComponent }];
 
 @NgModule({
-	declarations: [LoginComponent],
-	imports: [CommonModule, InputModule, ReactiveFormsModule, ButtonModule, RouterModule.forChild(routes)]
+	declarations: [FormRegisterComponent],
+	imports: [CommonModule, ReactiveFormsModule, InputModule, ButtonModule, RouterModule.forChild(routes)]
 })
-export class LoginModule {}
+export class RegisterModule {}

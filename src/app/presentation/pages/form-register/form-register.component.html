@@ -34,7 +34,7 @@
         type="password"
     ></app-input>
 
-    <app-button [disabled]="reactiveForm.invalid">register</app-button>
+    <app-button [disabled]="!!(reactiveForm.invalid || reactiveForm.disabled)">register</app-button>
 
     <footer class="form__footer">
         <a

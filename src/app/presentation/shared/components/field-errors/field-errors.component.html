@@ -21,4 +21,24 @@
         Minimum characters is {{formControl.errors?.['minlength'].requiredLength}}.
     </span>
 
+    <span
+        *ngIf="formControl.hasError('minOneLetterUpperCase')"
+        class="error"
+    >
+        Require at least one uppercase character.
+    </span>
+
+    <span
+        *ngIf="formControl.hasError('minOneLetterLowerCase')"
+        class="error"
+    >
+        Require at least one lowercase character.
+    </span>
+    <span
+        *ngIf="formControl.hasError('needsNumber')"
+        class="error"
+    >
+        Require at least one number.
+    </span>
+
 </div>

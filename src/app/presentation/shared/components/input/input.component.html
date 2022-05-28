@@ -9,11 +9,14 @@
             (input)="changedValue($event)"
             [appCustomAutofocus]="autofocus"
             [class.input-password]="initialType === 'password'"
+            [disabled]="disabled"
         >
 
         <button
+            type="button"
             (click)="togglePassword()"
             *ngIf="initialType === 'password'"
+            tabindex="1"
         >
             <fa-icon [icon]="iconPassword"></fa-icon>
         </button>

@@ -5,10 +5,10 @@ import { LoginFields } from 'src/app/core/interfaces/forms/LoginFields';
 
 @Component({
 	selector: 'app-login',
-	templateUrl: './login.component.html',
-	styleUrls: ['./login.component.scss']
+	templateUrl: './form-login.component.html',
+	styleUrls: ['./form-login.component.scss']
 })
-export class LoginComponent {
+export class FormLoginComponent {
 	reactiveForm: GenericFormGroup<LoginFields> = new FormGroup({
 		email: new FormControl('', [Validators.required, Validators.email]),
 		password: new FormControl('', [Validators.required])
