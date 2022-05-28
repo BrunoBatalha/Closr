@@ -25,10 +25,11 @@ input:focus {
 	padding-right: 38px;
 }
 
-fa-icon {
+button {
+	padding: 15px;
 	position: absolute;
-	right: 14px;
-	top: 18px;
+	right: 0;
+	top: 2px;
 	color: scale-color($neutral-color, $alpha: -30%);
 }
 

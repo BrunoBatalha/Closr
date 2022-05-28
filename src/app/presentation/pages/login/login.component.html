@@ -18,7 +18,7 @@
         type="password"
     ></app-input>
 
-    <button class="form__btn-submit">connect</button>
+    <app-button [disabled]="reactiveForm.invalid">connect</app-button>
 
     <footer class="form__footer">
         <a
