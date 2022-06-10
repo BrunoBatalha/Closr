@@ -18,11 +18,17 @@ namespace Lokin_BackEnd.Repositories
             _context = context;
         }
 
+        public async Task<UserModel?> GetById(Guid id)
+        {
+            return await _context.Users.AsNoTracking().FirstOrDefaultAsync(u => u.Id == id);
+        }
+
         public async Task<UserModel?> GetByCredentials(string username, string password)
         {
             var passwordEncode = PasswordService.Encode(password);
             return await _context.Users.AsNoTracking().FirstOrDefaultAsync(u => u.Username == username && passwordEncode == u.Password);
         }
+
 
         public async Task CreateAsync(User user)
         {

@@ -5,6 +5,7 @@ using Lokin_BackEnd;
 using Lokin_BackEnd.Adapters.Interfaces.UseCases;
 using Lokin_BackEnd.App.Interfaces.Repositories;
 using Lokin_BackEnd.App.UseCases.CreateUser;
+using Lokin_BackEnd.App.UseCases.GetUser;
 using Lokin_BackEnd.App.UseCases.Login;
 using Lokin_BackEnd.Domain;
 using Lokin_BackEnd.Infra;
@@ -15,6 +16,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 
 internal class Program
 {
@@ -32,6 +34,7 @@ internal class Program
     private static void ConfigureDependencyInjection(IServiceCollection services)
     {
         services.AddScoped<ICreateUserUseCase, CreateUserUseCase>();
+        services.AddScoped<IGetUserUseCase, GetUserUseCase>();
         services.AddScoped<ILoginUseCase, LoginUseCase>();
         services.AddScoped<IUserRepository, UserRepository>();
     }
@@ -64,7 +67,30 @@ internal class Program
         services.AddControllers();
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
         services.AddEndpointsApiExplorer();
-        services.AddSwaggerGen();
+        services.AddSwaggerGen(c =>
+        {
+            c.SwaggerDoc("v1", new OpenApiInfo { Title = "Lokin API" });
+            c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+            {
+                In = ParameterLocation.Header,
+                Description = "Insert token",
+                Name = "Authorization",
+                Type = SecuritySchemeType.Http,
+                BearerFormat = "JWT",
+                Scheme = "Bearer"
+            });
+            c.AddSecurityRequirement(new OpenApiSecurityRequirement{
+                {
+                    new OpenApiSecurityScheme{
+                        Reference = new OpenApiReference{
+                            Type= ReferenceType.SecurityScheme,
+                            Id = "Bearer"
+                        }
+                    },
+                    new string[]{}
+                }
+            });
+        });
         services.AddDbContext<AppDbContext>();
         services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 

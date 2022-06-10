@@ -21,7 +21,6 @@ namespace Lokin_BackEnd.App.UseCases.CreateUser
         public async Task<CreateUserOutputBoundary> Execute(CreateUserInputBoundary input)
         {
             var validator = new CreateUserValidator();
-            // validator.SetBoundary(input)
 
             var user = new User
             {
