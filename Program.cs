@@ -1,10 +1,14 @@
 using System;
 using System.Text;
+using AutoMapper;
 using Lokin_BackEnd;
 using Lokin_BackEnd.Adapters.Interfaces.UseCases;
 using Lokin_BackEnd.App.Interfaces.Repositories;
 using Lokin_BackEnd.App.UseCases.CreateUser;
+using Lokin_BackEnd.App.UseCases.Login;
+using Lokin_BackEnd.Domain;
 using Lokin_BackEnd.Infra;
+using Lokin_BackEnd.Infra.Models;
 using Lokin_BackEnd.Repositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -28,6 +32,7 @@ internal class Program
     private static void ConfigureDependencyInjection(IServiceCollection services)
     {
         services.AddScoped<ICreateUserUseCase, CreateUserUseCase>();
+        services.AddScoped<ILoginUseCase, LoginUseCase>();
         services.AddScoped<IUserRepository, UserRepository>();
     }
 
@@ -61,6 +66,7 @@ internal class Program
         services.AddEndpointsApiExplorer();
         services.AddSwaggerGen();
         services.AddDbContext<AppDbContext>();
+        services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
         var key = Encoding.ASCII.GetBytes(Settings.Secret);
         services.AddAuthentication(x =>

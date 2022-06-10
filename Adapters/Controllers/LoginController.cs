@@ -1,6 +1,8 @@
-using Lokin_BackEnd.Infra;
-using Lokin_BackEnd.Repositories;
-using Lokin_BackEnd.Requests;
+using System.Threading.Tasks;
+using Lokin_BackEnd.Adapters.Interfaces.UseCases;
+using Lokin_BackEnd.App.UseCases.Login.Boundaries;
+using Lokin_BackEnd.UseCases.Login.Boundaries;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -12,28 +14,32 @@ public class LoginController : ControllerBase
 {
     private readonly ILogger<LoginController> _logger;
 
-    public LoginController(ILogger<LoginController> logger)
+    private readonly ILoginUseCase _loginUseCase;
+
+    public LoginController(ILogger<LoginController> logger, ILoginUseCase loginUseCase)
     {
         _logger = logger;
+        _loginUseCase = loginUseCase;
     }
 
     [HttpPost]
     [Route("")]
-    public ActionResult<dynamic> Login([FromBody] LoginViewModel model)
+    public async Task<IActionResult> Login([FromBody] LoginInputBoundary input)
     {
-        var user = UserRepository.Get(model.Username, model.Password);
-
-        if (user == null)
+        try
         {
-            return NotFound(new { message = "Usuário ou senha inválidos" });
+            LoginOutputBoundary outputBoundary = await _loginUseCase.Execute(input);
+
+            if (outputBoundary.Errors != null && outputBoundary.Errors.Length > 0)
+            {
+                return BadRequest(outputBoundary.Errors);
+            }
+
+            return Ok(outputBoundary.Value);
         }
-
-        var token = TokenService.GenerateToken(user);
-        user.Password = "";
-        return new
+        catch (System.Exception exception)
         {
-            user = user,
-            token = token
-        };
+            return StatusCode(StatusCodes.Status500InternalServerError, exception);
+        }
     }
 }

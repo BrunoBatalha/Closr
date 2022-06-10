@@ -1,4 +1,5 @@
 using System;
+using Lokin_BackEnd.Domain.ValueObjects;
 
 namespace Lokin_BackEnd.Domain
 {
@@ -6,8 +7,7 @@ namespace Lokin_BackEnd.Domain
     {
         public Guid Id { get; set; }
         public string Username { get; set; }
-        public string Email { get; set; }
-        public string Password { get; set; }
-        public string Role { get; set; }
+        public Email Email { get; set; }
+        public Password Password { get; set; }
     }
 }

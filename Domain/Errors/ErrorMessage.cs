@@ -1,4 +1,4 @@
-namespace Lokin_BackEnd.App.Errors
+namespace Lokin_BackEnd.Domain.Errors
 {
     public class ErrorMessage
     {

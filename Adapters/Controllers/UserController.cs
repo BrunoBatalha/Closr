@@ -46,12 +46,17 @@ namespace Lokin_BackEnd.Controllers
             try
             {
                 CreateUserOutputBoundary outputBoundary = await _createUserUseCase.Execute(input);
+
+                if (outputBoundary.Errors != null && outputBoundary.Errors.Length > 0)
+                {
+                    return BadRequest(outputBoundary.Errors);
+                }
+
                 return Created($"api/v1/users/{outputBoundary.Value.Id}", outputBoundary.Value);
             }
             catch (System.Exception exception)
             {
-                ObjectResult? result = StatusCode(StatusCodes.Status500InternalServerError, exception);
-                return result;
+                return StatusCode(StatusCodes.Status500InternalServerError, exception);
             }
         }
     }

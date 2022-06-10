@@ -2,14 +2,14 @@ using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using Lokin_BackEnd.Domain;
+using Lokin_BackEnd.Infra.Models;
 using Microsoft.IdentityModel.Tokens;
 
 namespace Lokin_BackEnd.Infra
 {
     public static class TokenService
     {
-        public static string GenerateToken(User user)
+        public static string GenerateToken(UserModel user)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(Settings.Secret);

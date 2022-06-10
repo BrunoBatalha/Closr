@@ -6,6 +6,7 @@ using Lokin_BackEnd.App.Interfaces.Repositories;
 using Lokin_BackEnd.Domain;
 using Lokin_BackEnd.Infra;
 using Lokin_BackEnd.Infra.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Lokin_BackEnd.Repositories
 {
@@ -17,25 +18,21 @@ namespace Lokin_BackEnd.Repositories
             _context = context;
         }
 
-        public static User? Get(string username, string password)
+        public async Task<UserModel?> GetByCredentials(string username, string password)
         {
-            var users = new List<User>{
-                new User { Id = Guid.NewGuid(), Username = "batman", Password = "batman", Role = "manager" },
-                new User { Id = Guid.NewGuid(), Username = "robin", Password = "robin", Role = "employee" }
-            };
-
-            return users.Where(x => x.Username == username && x.Password == password).FirstOrDefault();
+            var passwordEncode = PasswordService.Encode(password);
+            return await _context.Users.AsNoTracking().FirstOrDefaultAsync(u => u.Username == username && passwordEncode == u.Password);
         }
 
         public async Task CreateAsync(User user)
         {
             var userModel = new UserModel
             {
-                Email = user.Email,
                 Id = user.Id,
-                Password = user.Password,
+                Email = user.Email.ToString(),
+                Password = PasswordService.Encode(user.Password.ToString()),
                 Username = user.Username,
-                Role = user.Role
+                Role = "common"
             };
 
             await _context.Users.AddAsync(userModel);

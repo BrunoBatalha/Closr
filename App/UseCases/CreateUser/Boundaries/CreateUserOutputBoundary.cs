@@ -1,5 +1,5 @@
 
-using Lokin_BackEnd.App.Errors;
+using Lokin_BackEnd.Domain.Errors;
 
 namespace Lokin_BackEnd.App.UseCases.CreateUser.Boundaries
 {
