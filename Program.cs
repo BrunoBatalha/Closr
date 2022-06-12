@@ -1,15 +1,12 @@
 using System;
 using System.Text;
-using AutoMapper;
 using Lokin_BackEnd;
 using Lokin_BackEnd.Adapters.Interfaces.UseCases;
 using Lokin_BackEnd.App.Interfaces.Repositories;
 using Lokin_BackEnd.App.UseCases.CreateUser;
 using Lokin_BackEnd.App.UseCases.GetUser;
 using Lokin_BackEnd.App.UseCases.Login;
-using Lokin_BackEnd.Domain;
 using Lokin_BackEnd.Infra;
-using Lokin_BackEnd.Infra.Models;
 using Lokin_BackEnd.Repositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -54,6 +51,12 @@ internal class Program
 
         app.UseHttpsRedirection();
 
+        app.UseCors(c =>
+        {
+            c.AllowAnyHeader();
+            c.AllowAnyOrigin();
+            c.AllowAnyMethod();
+        });
         app.UseAuthentication();
         app.UseAuthorization();
 
@@ -67,6 +70,9 @@ internal class Program
         services.AddControllers();
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
         services.AddEndpointsApiExplorer();
+        services.AddDbContext<AppDbContext>();
+        services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+        services.AddCors();
         services.AddSwaggerGen(c =>
         {
             c.SwaggerDoc("v1", new OpenApiInfo { Title = "Lokin API" });
@@ -91,8 +97,6 @@ internal class Program
                 }
             });
         });
-        services.AddDbContext<AppDbContext>();
-        services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
         var key = Encoding.ASCII.GetBytes(Settings.Secret);
         services.AddAuthentication(x =>

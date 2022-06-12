@@ -24,7 +24,7 @@ namespace Lokin_BackEnd.App.UseCases.Login
 
         public async Task<LoginOutputBoundary> Execute(LoginInputBoundary input)
         {
-            var user = await _userRepository.GetByCredentials(input.Username, input.Password);
+            var user = await _userRepository.GetByCredentials(input.Email, input.Password);
 
             if (user is null)
             {

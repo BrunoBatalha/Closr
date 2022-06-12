@@ -9,7 +9,7 @@ namespace Lokin_BackEnd.App.Interfaces.Repositories
     {
         Task CreateAsync(User user);
 
-        Task<UserModel?> GetByCredentials(string username, string email);
+        Task<UserModel?> GetByCredentials(string email, string password);
 
         Task<UserModel?> GetById(Guid id);
     }

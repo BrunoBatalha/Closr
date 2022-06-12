@@ -23,10 +23,10 @@ namespace Lokin_BackEnd.Repositories
             return await _context.Users.AsNoTracking().FirstOrDefaultAsync(u => u.Id == id);
         }
 
-        public async Task<UserModel?> GetByCredentials(string username, string password)
+        public async Task<UserModel?> GetByCredentials(string email, string password)
         {
             var passwordEncode = PasswordService.Encode(password);
-            return await _context.Users.AsNoTracking().FirstOrDefaultAsync(u => u.Username == username && passwordEncode == u.Password);
+            return await _context.Users.AsNoTracking().FirstOrDefaultAsync(u => u.Email == email && passwordEncode == u.Password);
         }
 
 
