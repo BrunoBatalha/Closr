@@ -32,14 +32,14 @@ export class FormRegisterComponent implements OnDestroy {
 	constructor(private formRegisterControllerService: FormRegisterControllerService) {}
 
 	onSubmit(): void {
+		console.log('teste');
 		this.reactiveForm.disable();
 
 		this.submit$ = this.formRegisterControllerService.submit(this.reactiveForm).subscribe({
 			next: () => {
-				console.log('sucesso');
+				alert('sucesso');
 			},
 			error: () => {
-				console.log('erro');
 				this.reactiveForm.enable();
 			},
 			complete: () => {
