@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { CreateUserRequest } from 'src/app/core/interfaces/requests/CreateUserRequest';
-import { CreateUserResponse } from 'src/app/core/interfaces/requests/CreateUserResponse';
+import { CreateUserResponse } from 'src/app/core/interfaces/responses/CreateUserResponse';
 import { HttpBaseService } from '../http-base.service';
 
 @Injectable({

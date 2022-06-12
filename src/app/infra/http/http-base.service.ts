@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { catchError, Observable } from 'rxjs';
+import { ErrorResponse } from 'src/app/core/interfaces/responses/ErrorResponse';
 import { environment } from 'src/environments/environment';
 
 type Params = HttpParams | { [param: string]: string | number | boolean | ReadonlyArray<string | number | boolean> };
@@ -15,9 +16,15 @@ export class HttpBaseService {
 	protected constructor(private http: HttpClient) {}
 
 	protected post<TResponse>(path: string, body: object, header?: Header, params?: Params): Observable<TResponse> {
-		return this.http.post<TResponse>(`${this.baseUrl}/${path}`, body, {
-			headers: header,
-			params: params
-		});
+		return this.http
+			.post<TResponse>(`${this.baseUrl}/${path}`, body, {
+				headers: header,
+				params: params
+			})
+			.pipe(
+				catchError((e: ErrorResponse) => {
+					throw e.error;
+				})
+			);
 	}
 }

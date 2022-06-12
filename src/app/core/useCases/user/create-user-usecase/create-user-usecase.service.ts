@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { concatMap, Observable } from 'rxjs';
 import { RegisterFields } from 'src/app/core/interfaces/forms/RegisterFields';
-import { CreateUserResponse } from 'src/app/core/interfaces/requests/CreateUserResponse';
+import { CreateUserResponse } from 'src/app/core/interfaces/responses/CreateUserResponse';
 import { CreateUserValidatorService } from 'src/app/core/validators/users/create-user-validator/create-user-validator.service';
 import { UserHttpService } from 'src/app/infra/http/user-http/user-http.service';
 
@@ -18,7 +18,7 @@ export class CreateUserUsecaseService {
 		return this.validator.validate(fields).pipe(
 			concatMap(() =>
 				this.userHttpService.create({
-					email: fields.username,
+					email: fields.email,
 					password: fields.password,
 					username: fields.username
 				})

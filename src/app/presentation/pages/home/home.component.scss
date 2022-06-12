@@ -1,0 +1,13 @@
+@import 'src/scss/variables';
+
+.container {
+	min-height: 100vh;
+	background-color: $primary-color;
+	color: $neutral-color
+}
+
+h1 {
+	font-size: 36px;
+	text-align: center;
+	padding-top: 10px;
+}

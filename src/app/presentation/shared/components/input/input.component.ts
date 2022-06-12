@@ -39,7 +39,6 @@ export class InputComponent implements ControlValueAccessor, OnInit {
 	}
 
 	changedValue(event: Event): void {
-		console.log(this.formControl.errors);
 		if (this.onChanged) {
 			this.onChanged((event.target as HTMLInputElement).value);
 			this.errors = Object.keys(this.formControl.errors || {});

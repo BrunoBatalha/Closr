@@ -8,6 +8,10 @@ const routes: Routes = [
 			import('./presentation/wrappers/login-register/wrapper-login-register.module').then(
 				(m) => m.WrapperLoginRegisterModule
 			)
+	},
+	{
+		path: 'home',
+		loadChildren: () => import('./presentation/pages/home/home.module').then((m) => m.HomeModule)
 	}
 ];
 

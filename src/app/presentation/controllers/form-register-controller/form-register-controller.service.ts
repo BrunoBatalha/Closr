@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { GenericFormGroup } from 'src/app/core/interfaces/forms/GenericFormGroup';
 import { RegisterFields } from 'src/app/core/interfaces/forms/RegisterFields';
-import { CreateUserResponse } from 'src/app/core/interfaces/requests/CreateUserResponse';
+import { CreateUserResponse } from 'src/app/core/interfaces/responses/CreateUserResponse';
 import { CreateUserUsecaseService } from 'src/app/core/useCases/user/create-user-usecase/create-user-usecase.service';
 
 @Injectable({

@@ -1,6 +1,7 @@
 <form
     class="form"
     [formGroup]="reactiveForm"
+    (ngSubmit)="onSubmit()"
 >
     <app-input
         [parentFormGroup]="reactiveForm"
