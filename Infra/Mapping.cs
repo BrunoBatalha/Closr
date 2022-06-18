@@ -1,5 +1,5 @@
 using AutoMapper;
-using Lokin_BackEnd.App.UseCases.Dtos;
+using Lokin_BackEnd.App.Dtos;
 using Lokin_BackEnd.Infra.Models;
 
 namespace Lokin_BackEnd.Infra

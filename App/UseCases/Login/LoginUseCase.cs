@@ -1,8 +1,8 @@
 using System.Threading.Tasks;
 using AutoMapper;
 using Lokin_BackEnd.Adapters.Interfaces.UseCases;
+using Lokin_BackEnd.App.Dtos;
 using Lokin_BackEnd.App.Interfaces.Repositories;
-using Lokin_BackEnd.App.UseCases.Dtos;
 using Lokin_BackEnd.App.UseCases.Login.Boundaries;
 using Lokin_BackEnd.Domain.Errors;
 using Lokin_BackEnd.Infra;

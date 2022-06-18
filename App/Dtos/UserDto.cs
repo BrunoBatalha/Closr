@@ -1,4 +1,4 @@
-namespace Lokin_BackEnd.App.UseCases.Dtos
+namespace Lokin_BackEnd.App.Dtos
 {
     public class UserDto
     {
