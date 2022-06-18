@@ -42,7 +42,7 @@ namespace Lokin_BackEnd.Controllers
             return await Result(async () =>
             {
                 CreateUserOutputBoundary outputBoundary = await _createUserUseCase.Execute(input);
-                return GetResultCreated(outputBoundary, $"api/v1/users/{outputBoundary.Value.Id}");
+                return GetResultCreated<Output>(outputBoundary, $"api/v1/users/{outputBoundary.Value?.Id}");
             });
         }
     }
