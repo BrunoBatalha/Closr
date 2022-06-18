@@ -1,7 +1,11 @@
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
+using Lokin_BackEnd.App.Interfaces.Repositories;
 using Lokin_BackEnd.App.UseCases.CreateUser.Boundaries;
+using Lokin_BackEnd.Domain;
 using Lokin_BackEnd.Domain.Errors;
+using Lokin_BackEnd.Infra.Models;
 
 namespace Lokin_BackEnd.App.Validators.CreateUserValidator
 {
@@ -9,10 +13,12 @@ namespace Lokin_BackEnd.App.Validators.CreateUserValidator
     {
         private List<ErrorMessage> _errorMessages = new();
         private CreateUserInputBoundary _input;
+        private IUserRepository _userRepository;
 
-        public CreateUserValidator SetBoundary(CreateUserInputBoundary input)
+        public CreateUserValidator SetBoundary(CreateUserInputBoundary input, IUserRepository userRepository)
         {
             _input = input;
+            _userRepository = userRepository;
             return this;
         }
 
@@ -27,26 +33,13 @@ namespace Lokin_BackEnd.App.Validators.CreateUserValidator
             return (ErrorMessage error) => _errorMessages.Add(error);
         }
 
-        public void Validate()
+        public async Task Validate()
         {
-            // if (string.IsNullOrEmpty(_input.Email))
-            // {
-            //     _errorMessages.Add(CreateUserErrors.EmailInvalid);
-            // }
-
-            // if (string.IsNullOrEmpty(_input.Username))
-            // {
-            //     _errorMessages.Add(CreateUserErrors.UsernameInvalid);
-            // }
-
-            // if (string.IsNullOrEmpty(_input.Password))
-            // {
-            //     _errorMessages.Add(CreateUserErrors.PasswordInvalid);
-            // }
-            // else if (_input.Password.Length > 8)
-            // {
-            //     _errorMessages.Add(CreateUserErrors.PasswordInvalid);
-            // }
+            UserModel? user = await _userRepository.GetByEmail(_input.Email);
+            if (user is not null)
+            {
+                _errorMessages.Add(CreateUserErrors.AlreadyExistsUserSameEmail);
+            }
         }
 
         public bool HasError()

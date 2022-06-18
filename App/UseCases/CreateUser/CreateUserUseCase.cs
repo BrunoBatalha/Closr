@@ -11,16 +11,16 @@ namespace Lokin_BackEnd.App.UseCases.CreateUser
 {
     public class CreateUserUseCase : ICreateUserUseCase
     {
-        private readonly IUserRepository userRepository;
+        private readonly IUserRepository _userRepository;
 
         public CreateUserUseCase(IUserRepository userRepository)
         {
-            this.userRepository = userRepository;
+            _userRepository = userRepository;
         }
 
         public async Task<CreateUserOutputBoundary> Execute(CreateUserInputBoundary input)
         {
-            var validator = new CreateUserValidator();
+            var validator = new CreateUserValidator().SetBoundary(input, _userRepository);
 
             var user = new User
             {
@@ -30,12 +30,13 @@ namespace Lokin_BackEnd.App.UseCases.CreateUser
                 Email = new Email(validator.GetAddError(), input.Email),
             };
 
+            await validator.Validate();
             if (validator.HasError())
             {
                 return new CreateUserOutputBoundary { Errors = validator.GetErrors() };
             }
 
-            await userRepository.CreateAsync(user);
+            await _userRepository.CreateAsync(user);
 
             return new CreateUserOutputBoundary
             {

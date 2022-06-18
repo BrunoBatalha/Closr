@@ -1,12 +1,7 @@
-
-using Lokin_BackEnd.Domain.Errors;
-
 namespace Lokin_BackEnd.App.UseCases.CreateUser.Boundaries
 {
-    public class CreateUserOutputBoundary
+    public class CreateUserOutputBoundary : OutputBoundaryBase<Output>
     {
-        public ErrorMessage[] Errors { get; set; }
-        public Output Value { get; set; }
     }
 
     public class Output

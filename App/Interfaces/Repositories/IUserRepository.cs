@@ -12,5 +12,7 @@ namespace Lokin_BackEnd.App.Interfaces.Repositories
         Task<UserModel?> GetByCredentials(string email, string password);
 
         Task<UserModel?> GetById(Guid id);
+
+        Task<UserModel?> GetByEmail(string email);
     }
 }
