@@ -1,15 +1,19 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Threading.Tasks;
 using Lokin_BackEnd.App.Interfaces;
+using Lokin_BackEnd.Infra.Models;
 
 namespace Lokin_BackEnd.Infra.Repositories
 {
     public class RefreshTokenRepository : IRefreshTokenRepository
     {
-        private static List<(Guid, string)> _refreshTokens = new List<(Guid, string)>();
+        private readonly AppDbContext _context;
+        public RefreshTokenRepository(AppDbContext context)
+        {
+            _context = context;
+        }
 
         public string GenerateRefreshToken()
         {
@@ -20,23 +24,32 @@ namespace Lokin_BackEnd.Infra.Repositories
         }
 
 
-        public async Task SaveRefreshToken(Guid id, string refreshTokens)
+        public async Task Create(Guid id, string refreshToken)
         {
-            _refreshTokens.Add(new(id, refreshTokens));
+            var refreshTokenModel = new RefreshTokenModel
+            {
+                Id = Guid.NewGuid(),
+                UserId = id,
+                Value = refreshToken
+            };
+
+            await _context.RefreshTokens.AddAsync(refreshTokenModel);
+            await _context.SaveChangesAsync();
         }
 
-        public async Task DeleteRefreshToken(Guid id)
+        public async Task DeleteByUserId(Guid id)
         {
-            var item = _refreshTokens.FirstOrDefault(rt => rt.Item1 == id);
-            if (item.Item2 != null)
+            RefreshTokenModel? refreshToken = _context.RefreshTokens.FirstOrDefault(rt => rt.UserId == id);
+            if (refreshToken != null)
             {
-                _refreshTokens.Remove(item);
+                _context.RefreshTokens.Remove(refreshToken);
+                await _context.SaveChangesAsync();
             }
         }
 
-        public async Task<(Guid, string)> GetRefreshTokenByUserId(Guid? id)
+        public RefreshTokenModel? GetByUserId(Guid id)
         {
-            return _refreshTokens.FirstOrDefault(rt => rt.Item1 == id);
+            return _context.RefreshTokens.Where(rt => rt.UserId == id).FirstOrDefault();
         }
     }
 }

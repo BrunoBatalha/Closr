@@ -39,13 +39,13 @@ namespace Lokin_BackEnd.Infra.Middlewares
                 else
                 {
                     Guid userId = TokenService.GetUserId(token);
-                    var refreshTokenDatabase = await _refreshTokenRepository.GetRefreshTokenByUserId(userId);
-                    if (refreshTokenDatabase.Item2 != refreshTokenHeader)
+                    var refreshTokenDatabase = _refreshTokenRepository.GetByUserId(userId);
+                    if (refreshTokenDatabase?.Value != refreshTokenHeader)
                     {
                         context.Request.Headers.Remove("Authorization");
-                        if (refreshTokenDatabase.Item2 is not null)
+                        if (refreshTokenDatabase is not null)
                         {
-                            await _refreshTokenRepository.DeleteRefreshToken(userId);
+                            await _refreshTokenRepository.DeleteByUserId(userId);
                         }
 
                         await _next(context);
@@ -57,8 +57,8 @@ namespace Lokin_BackEnd.Infra.Middlewares
                         string newToken = TokenService.GenerateToken(TokenService.GetPrincipalFromExpiredToken(token).Claims);
                         string newRefreshToken = _refreshTokenRepository.GenerateRefreshToken();
 
-                        await _refreshTokenRepository.DeleteRefreshToken(userId);
-                        await _refreshTokenRepository.SaveRefreshToken(userId, newRefreshToken);
+                        await _refreshTokenRepository.DeleteByUserId(userId);
+                        await _refreshTokenRepository.Create(userId, newRefreshToken);
 
                         context.Response.Headers.Authorization = "Bearer " + newToken;
                         context.Response.Headers.Add("Refresh-Token", newRefreshToken);

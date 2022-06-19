@@ -1,5 +1,6 @@
 using System;
 using System.Threading.Tasks;
+using Lokin_BackEnd.Infra.Models;
 
 namespace Lokin_BackEnd.App.Interfaces
 {
@@ -7,10 +8,10 @@ namespace Lokin_BackEnd.App.Interfaces
     {
         string GenerateRefreshToken();
 
-        Task SaveRefreshToken(Guid id, string refreshTokens);
+        Task Create(Guid id, string refreshTokens);
 
-        Task DeleteRefreshToken(Guid id);
+        Task DeleteByUserId(Guid id);
 
-        Task<(Guid, string)> GetRefreshTokenByUserId(Guid? id);
+        RefreshTokenModel? GetByUserId(Guid id);
     }
 }

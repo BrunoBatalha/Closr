@@ -6,6 +6,7 @@ namespace Lokin_BackEnd.Infra
     public class AppDbContext : DbContext
     {
         public DbSet<UserModel> Users { get; set; }
+        public DbSet<RefreshTokenModel> RefreshTokens { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

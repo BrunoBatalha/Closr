@@ -38,10 +38,10 @@ namespace Lokin_BackEnd.App.UseCases.Login
             }
 
 
-            await _refreshTokenRepository.DeleteRefreshToken(user.Id);
+            await _refreshTokenRepository.DeleteByUserId(user.Id);
 
             string refreshToken = _refreshTokenRepository.GenerateRefreshToken();
-            await _refreshTokenRepository.SaveRefreshToken(user.Id, refreshToken);
+            await _refreshTokenRepository.Create(user.Id, refreshToken);
 
             return new LoginOutputBoundary
             {
