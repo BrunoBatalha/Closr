@@ -37,15 +37,6 @@ namespace Lokin_BackEnd.Infra
             return tokenHandler.WriteToken(token);
         }
 
-
-        public static string GenerateRefreshToken()
-        {
-            var randomNumber = new byte[32];
-            using var randomNumberGenerator = RandomNumberGenerator.Create();
-            randomNumberGenerator.GetBytes(randomNumber);
-            return Convert.ToBase64String(randomNumber);
-        }
-
         public static ClaimsPrincipal? GetPrincipalFromExpiredToken(string token)
         {
             var tokenHandler = new JwtSecurityTokenHandler();

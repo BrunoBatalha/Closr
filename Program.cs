@@ -1,7 +1,10 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using Lokin_BackEnd;
 using Lokin_BackEnd.Adapters.Interfaces.UseCases;
+using Lokin_BackEnd.App.Interfaces;
 using Lokin_BackEnd.App.Interfaces.Repositories;
 using Lokin_BackEnd.App.UseCases.CreateUser;
 using Lokin_BackEnd.App.UseCases.GetUser;
@@ -9,13 +12,17 @@ using Lokin_BackEnd.App.UseCases.Login;
 using Lokin_BackEnd.App.UseCases.RefreshToken;
 using Lokin_BackEnd.Infra;
 using Lokin_BackEnd.Infra.Middlewares;
+using Lokin_BackEnd.Infra.Repositories;
 using Lokin_BackEnd.Repositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Any;
 using Microsoft.OpenApi.Models;
+using Swashbuckle.AspNetCore.SwaggerGen;
 
 internal class Program
 {
@@ -36,6 +43,7 @@ internal class Program
         services.AddScoped<ILoginUseCase, LoginUseCase>();
         services.AddScoped<IRefreshTokenUseCase, RefreshTokenUseCase>();
         services.AddScoped<IUserRepository, UserRepository>();
+        services.AddScoped<IRefreshTokenRepository, RefreshTokenRepository>();
     }
 
     private static void ConfigureApplication(WebApplication app)
@@ -80,6 +88,7 @@ internal class Program
         services.AddSwaggerGen(c =>
         {
             c.SwaggerDoc("v1", new OpenApiInfo { Title = "Lokin API" });
+            c.OperationFilter<HeaderParameterOperationFilter>();
             c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
             {
                 In = ParameterLocation.Header,
@@ -120,5 +129,29 @@ internal class Program
                 ClockSkew = TimeSpan.Zero // invalidate token in exact hour
             };
         });
+    }
+}
+
+
+public class HeaderParameterOperationFilter : IOperationFilter
+{
+    public void Apply(OpenApiOperation operation, OperationFilterContext context)
+    {
+        if (operation.Parameters == null)
+            operation.Parameters = new List<OpenApiParameter>();
+
+        operation.Parameters.Add(new OpenApiParameter
+        {
+            Name = "Refresh-Token",
+            In = ParameterLocation.Header,
+            Description = "refresh token",
+            Required = false,
+            Schema = new OpenApiSchema
+            {
+                Type = "string",
+                Default = new OpenApiString("")
+            }
+        });
+
     }
 }

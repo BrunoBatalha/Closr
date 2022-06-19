@@ -2,6 +2,7 @@ using System;
 using System.Threading.Tasks;
 using Lokin_BackEnd.Adapters.Controllers;
 using Lokin_BackEnd.Adapters.Interfaces.UseCases;
+using Lokin_BackEnd.App.UseCases.Login.Boundaries;
 using Lokin_BackEnd.UseCases.Login.Boundaries;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -28,7 +29,13 @@ public class LoginController : ControllerCustomBase
     [Route("")]
     public async Task<IActionResult> Login([FromBody] LoginInputBoundary input)
     {
-        return await Result(async () => GetResultOk(await _loginUseCase.Execute(input)));
+        return await Result(async () =>
+        {
+            LoginOutputBoundary output = await _loginUseCase.Execute(input);
+            Response.Headers.Authorization = "Bearer " + output.Value.Token;
+            Response.Headers.Add("Refresh-Token", output.Value.RefreshToken);
+            return GetResultOk(output);
+        });
     }
 
     [HttpPost]

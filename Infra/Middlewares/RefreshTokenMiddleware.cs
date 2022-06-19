@@ -1,6 +1,7 @@
 using System;
-using System.Security.Claims;
+using System.Linq;
 using System.Threading.Tasks;
+using Lokin_BackEnd.App.Interfaces;
 using Microsoft.AspNetCore.Http;
 
 namespace Lokin_BackEnd.Infra.Middlewares
@@ -8,33 +9,63 @@ namespace Lokin_BackEnd.Infra.Middlewares
     public class RefreshTokenMiddleware
     {
         private readonly RequestDelegate _next;
+        private IRefreshTokenRepository _refreshTokenRepository;
 
         public RefreshTokenMiddleware(RequestDelegate next)
         {
             _next = next;
         }
 
-        public async Task InvokeAsync(HttpContext context)
+        public async Task InvokeAsync(HttpContext context, IRefreshTokenRepository refreshTokenRepository)
         {
-            if (!string.IsNullOrEmpty(context.Request.Headers.Authorization))
+            _refreshTokenRepository = refreshTokenRepository;
+
+            context.Request.Headers.TryGetValue("Authorization", out var authorization);
+            string? authorizationHeader = authorization.FirstOrDefault();
+
+            if (!string.IsNullOrEmpty(authorizationHeader))
             {
                 string token = context.Request.Headers.Authorization.ToString().Split(' ')[1];
 
-                if (TokenService.IsTokenExpired(token))
+                context.Request.Headers.TryGetValue("Refresh-Token", out var values);
+                string? refreshTokenHeader = values.FirstOrDefault();
+
+                if (string.IsNullOrEmpty(refreshTokenHeader))
+                {
+                    context.Request.Headers.Remove("Authorization");
+                    await _next(context);
+                    return;
+                }
+                else
                 {
                     Guid userId = TokenService.GetUserId(token);
-                    ClaimsPrincipal? principal = TokenService.GetPrincipalFromExpiredToken(token);
+                    var refreshTokenDatabase = await _refreshTokenRepository.GetRefreshTokenByUserId(userId);
+                    if (refreshTokenDatabase.Item2 != refreshTokenHeader)
+                    {
+                        context.Request.Headers.Remove("Authorization");
+                        if (refreshTokenDatabase.Item2 is not null)
+                        {
+                            await _refreshTokenRepository.DeleteRefreshToken(userId);
+                        }
 
-                    string newToken = TokenService.GenerateToken(principal.Claims);
-                    string newRefreshToken = TokenService.GenerateRefreshToken();
+                        await _next(context);
+                        return;
+                    }
 
-                    TokenService.DeleteRefreshToken(userId);
-                    TokenService.SaveRefreshToken(userId, newRefreshToken);
+                    if (TokenService.IsTokenExpired(token))
+                    {
+                        string newToken = TokenService.GenerateToken(TokenService.GetPrincipalFromExpiredToken(token).Claims);
+                        string newRefreshToken = _refreshTokenRepository.GenerateRefreshToken();
 
-                    context.Response.Headers.Add("Authorization", "Bearer " + newToken);
+                        await _refreshTokenRepository.DeleteRefreshToken(userId);
+                        await _refreshTokenRepository.SaveRefreshToken(userId, newRefreshToken);
 
-                    context.Request.Headers.Remove("Authorization");
-                    context.Request.Headers.Add("Authorization", "Bearer " + newToken);
+                        context.Response.Headers.Authorization = "Bearer " + newToken;
+                        context.Response.Headers.Add("Refresh-Token", newRefreshToken);
+
+                        context.Request.Headers.Remove("Authorization");
+                        context.Request.Headers.Add("Authorization", "Bearer " + newToken);
+                    }
                 }
             }
 
