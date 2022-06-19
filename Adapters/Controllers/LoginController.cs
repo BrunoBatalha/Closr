@@ -2,7 +2,6 @@ using System;
 using System.Threading.Tasks;
 using Lokin_BackEnd.Adapters.Controllers;
 using Lokin_BackEnd.Adapters.Interfaces.UseCases;
-using Lokin_BackEnd.App.UseCases.RefreshToken.Boundaries;
 using Lokin_BackEnd.UseCases.Login.Boundaries;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
