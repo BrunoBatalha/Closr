@@ -29,8 +29,6 @@ public class LoginController : ControllerCustomBase
     [Route("")]
     public async Task<IActionResult> Login([FromBody] LoginInputBoundary input)
     {
-
-        Response.Headers.Add("teste", "kkkkkkkkkkkk");
         return await Result(async () => GetResultOk(await _loginUseCase.Execute(input)));
     }
 
