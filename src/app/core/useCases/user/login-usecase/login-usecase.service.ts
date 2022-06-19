@@ -25,7 +25,6 @@ export class LoginUsecaseService {
 				tap({
 					next: (value: LoginResponse) => {
 						this.authService.setUserId(value.user.id);
-						console.log('login use case', value);
 					}
 				}),
 				catchError((error: ErrorResponse) => {
