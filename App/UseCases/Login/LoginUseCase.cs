@@ -34,12 +34,16 @@ namespace Lokin_BackEnd.App.UseCases.Login
                 };
             }
 
+            string refreshToken = TokenService.GenerateRefreshToken();
+            // TokenService.SaveRefreshToken(user.Email, refreshToken);
+
             return new LoginOutputBoundary
             {
                 Value = new()
                 {
                     User = _mapper.Map<UserDto>(user),
-                    Token = TokenService.GenerateToken(user)
+                    Token = TokenService.GenerateToken(user),
+                    RefreshToken = refreshToken
                 }
             };
         }

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Lokin_BackEnd.App.Interfaces.Repositories;
 using Lokin_BackEnd.App.UseCases.CreateUser.Boundaries;
-using Lokin_BackEnd.Domain;
 using Lokin_BackEnd.Domain.Errors;
 using Lokin_BackEnd.Infra.Models;
 

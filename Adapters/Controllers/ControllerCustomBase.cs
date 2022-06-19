@@ -16,7 +16,7 @@ namespace Lokin_BackEnd.Adapters.Controllers
             }
             catch (System.Exception exception)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, exception);
+                return StatusCode(StatusCodes.Status500InternalServerError, exception.Message);
             }
         }
 

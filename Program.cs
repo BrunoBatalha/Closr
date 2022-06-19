@@ -6,7 +6,9 @@ using Lokin_BackEnd.App.Interfaces.Repositories;
 using Lokin_BackEnd.App.UseCases.CreateUser;
 using Lokin_BackEnd.App.UseCases.GetUser;
 using Lokin_BackEnd.App.UseCases.Login;
+using Lokin_BackEnd.App.UseCases.RefreshToken;
 using Lokin_BackEnd.Infra;
+using Lokin_BackEnd.Infra.Middlewares;
 using Lokin_BackEnd.Repositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -20,7 +22,6 @@ internal class Program
     private static void Main(string[] args)
     {
         var builder = WebApplication.CreateBuilder(args);
-
         ConfigureServices(builder.Services);
 
         ConfigureDependencyInjection(builder.Services);
@@ -33,11 +34,14 @@ internal class Program
         services.AddScoped<ICreateUserUseCase, CreateUserUseCase>();
         services.AddScoped<IGetUserUseCase, GetUserUseCase>();
         services.AddScoped<ILoginUseCase, LoginUseCase>();
+        services.AddScoped<IRefreshTokenUseCase, RefreshTokenUseCase>();
         services.AddScoped<IUserRepository, UserRepository>();
     }
 
     private static void ConfigureApplication(WebApplication app)
     {
+        app.UseMiddleware<RefreshTokenMiddleware>();
+
         // Configure the HTTP request pipeline.
         if (app.Environment.IsDevelopment())
         {
@@ -112,7 +116,8 @@ internal class Program
                 ValidateIssuerSigningKey = true,
                 IssuerSigningKey = new SymmetricSecurityKey(key),
                 ValidateIssuer = false,
-                ValidateAudience = false
+                ValidateAudience = false,
+                ClockSkew = TimeSpan.Zero // invalidate token in exact hour
             };
         });
     }
