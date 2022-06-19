@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { concatMap, Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { GenericFormGroup } from 'src/app/core/interfaces/forms/GenericFormGroup';
 import { LoginFields } from 'src/app/core/interfaces/forms/LoginFields';
 import { LoginResponse } from 'src/app/core/interfaces/responses/LoginResponse';
@@ -17,11 +17,6 @@ export class FormLoginControllerService {
 			password: form.controls.password.value
 		};
 
-		return this.loginUseCase.execute(fields).pipe(
-			concatMap((response: LoginResponse) => {
-				localStorage.setItem('token', response.token);
-				return of(response);
-			})
-		);
+		return this.loginUseCase.execute(fields);
 	}
 }

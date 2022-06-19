@@ -51,8 +51,3 @@ export class FormRegisterComponent implements OnDestroy {
 		this.submit$?.unsubscribe();
 	}
 }
-// controller na real aq eh o facade,
-/**exemplo uma tela pode fazer varias coisas, pelo controller eh decidido qual usecase vai ser utilizado
- * controller atua como uma interface para os usecases, um controller pode ter varias instacias de usecases
- * mas a tela vai ter apenas um controller
- */

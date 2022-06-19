@@ -16,15 +16,42 @@ export class HttpBaseService {
 	protected constructor(private http: HttpClient) {}
 
 	protected post<TResponse>(path: string, body: object, header?: Header, params?: Params): Observable<TResponse> {
-		return this.http
-			.post<TResponse>(`${this.baseUrl}/${path}`, body, {
+		return this.request('post', path, body, header, params);
+	}
+
+	protected get<TResponse>(path: string, header?: Header, params?: Params): Observable<TResponse> {
+		return this.request('get', path, undefined, header, params);
+	}
+
+	private request<TResponse>(
+		methodHttp: 'get' | 'post',
+		path: string,
+		body?: object,
+		header?: Header,
+		params?: Params
+	): Observable<TResponse> {
+		let httpRequest$: Observable<TResponse> | null = null;
+
+		if (methodHttp === 'get') {
+			httpRequest$ = this.http.get<TResponse>(`${this.baseUrl}/${path}`, {
 				headers: header,
 				params: params
+			});
+		} else if (methodHttp === 'post') {
+			httpRequest$ = this.http.post<TResponse>(`${this.baseUrl}/${path}`, body, {
+				headers: header,
+				params: params
+			});
+		}
+
+		if (!httpRequest$) {
+			throw new Error('Http method not found');
+		}
+
+		return httpRequest$.pipe(
+			catchError((e: ErrorResponse) => {
+				throw e.error;
 			})
-			.pipe(
-				catchError((e: ErrorResponse) => {
-					throw e.error;
-				})
-			);
+		);
 	}
 }
