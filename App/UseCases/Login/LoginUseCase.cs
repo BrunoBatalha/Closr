@@ -37,6 +37,9 @@ namespace Lokin_BackEnd.App.UseCases.Login
                 };
             }
 
+
+            await _refreshTokenRepository.DeleteRefreshToken(user.Id);
+
             string refreshToken = _refreshTokenRepository.GenerateRefreshToken();
             await _refreshTokenRepository.SaveRefreshToken(user.Id, refreshToken);
 
