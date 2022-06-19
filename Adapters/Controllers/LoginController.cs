@@ -32,8 +32,11 @@ public class LoginController : ControllerCustomBase
         return await Result(async () =>
         {
             LoginOutputBoundary output = await _loginUseCase.Execute(input);
-            Response.Headers.Authorization = "Bearer " + output.Value.Token;
-            Response.Headers.Add("Refresh-Token", output.Value.RefreshToken);
+            if (output.Errors == null && output.StatusCode == null)
+            {
+                Response.Headers.Authorization = "Bearer " + output.Value.Token;
+                Response.Headers.Add("Refresh-Token", output.Value.RefreshToken);
+            }
             return GetResultOk(output);
         });
     }

@@ -28,7 +28,10 @@ namespace Lokin_BackEnd.Infra.Repositories
         public async Task DeleteRefreshToken(Guid id)
         {
             var item = _refreshTokens.FirstOrDefault(rt => rt.Item1 == id);
-            _refreshTokens.Remove(item);
+            if (item.Item2 != null)
+            {
+                _refreshTokens.Remove(item);
+            }
         }
 
         public async Task<(Guid, string)> GetRefreshTokenByUserId(Guid? id)
