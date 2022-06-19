@@ -68,6 +68,7 @@ internal class Program
             c.AllowAnyHeader();
             c.AllowAnyOrigin();
             c.AllowAnyMethod();
+            c.WithExposedHeaders("Refresh-Token", "Authorization");
         });
         app.UseAuthentication();
         app.UseAuthorization();
