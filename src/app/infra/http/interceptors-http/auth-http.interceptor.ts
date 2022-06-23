@@ -10,12 +10,12 @@ import {
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, tap } from 'rxjs';
-import { AuthService } from '../../../services/auth.service';
+import { AuthService } from 'src/app/infra/services/auth.service';
 
 @Injectable({
 	providedIn: 'root'
 })
-export class AuthRequestHttpInterceptor implements HttpInterceptor {
+export class AuthHttpInterceptor implements HttpInterceptor {
 	constructor(private readonly authService: AuthService, private readonly router: Router) {}
 
 	intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {

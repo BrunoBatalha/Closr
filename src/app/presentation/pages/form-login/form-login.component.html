@@ -19,7 +19,7 @@
         type="password"
     ></app-input>
 
-    <app-button [disabled]="reactiveForm.invalid">connect</app-button>
+    <app-button [disabled]="!!(reactiveForm.invalid || reactiveForm.disabled)">connect</app-button>
 
     <footer class="form__footer">
         <a

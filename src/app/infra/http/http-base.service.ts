@@ -1,7 +1,7 @@
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable } from 'rxjs';
-import { ErrorResponse } from 'src/app/core/interfaces/responses/ErrorResponse';
+import { ErrorMessage } from 'src/app/core/interfaces/ErrorMessage';
 import { environment } from 'src/environments/environment';
 
 type Params = HttpParams | { [param: string]: string | number | boolean | ReadonlyArray<string | number | boolean> };
@@ -49,8 +49,12 @@ export class HttpBaseService {
 		}
 
 		return httpRequest$.pipe(
-			catchError((e: ErrorResponse) => {
-				throw e.error;
+			catchError((e: HttpErrorResponse) => {
+				if (e.status === 0) {
+					throw [{ code: '0', message: e.message }] as ErrorMessage[];
+				} else {
+					throw e.error as ErrorMessage[];
+				}
 			})
 		);
 	}

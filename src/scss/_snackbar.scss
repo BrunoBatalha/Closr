@@ -1,0 +1,49 @@
+@import 'variables';
+
+.snackbar {
+	position: fixed;
+	width: 100px;
+	left: 20px;
+	background: $danger-color;
+	color: $neutral-color;
+	min-width: 450px;
+	overflow-wrap: break-word;
+	padding: 20px;
+	bottom: 30px;
+	opacity: 1;
+}
+
+.snackbar--show {
+	animation: snackbar-show .4s ease-in-out forwards;
+}
+
+.snackbar--hidden {
+	animation: snackbar-hidden .4s ease-in-out forwards;
+}
+
+@keyframes snackbar-hidden {
+	from {
+		opacity: 1;
+	}
+
+	to {
+		opacity: 0;
+		bottom: 0;
+	}
+}
+
+@keyframes snackbar-show {
+	0% {
+		bottom: 0;
+		opacity: 0;
+	}
+
+	75% {
+		opacity: .7;
+	}
+
+	100% {
+		bottom: 30px;
+		opacity: 1;
+	}
+}

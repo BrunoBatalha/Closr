@@ -1,9 +1,11 @@
 import { Component, OnDestroy } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
+import { ErrorMessage } from 'src/app/core/interfaces/ErrorMessage';
 import { GenericFormGroup } from 'src/app/core/interfaces/forms/GenericFormGroup';
 import { RegisterFields } from 'src/app/core/interfaces/forms/RegisterFields';
 import { CustomValidator } from 'src/app/core/validators/custom-validators-form';
+import { SnackBarService } from 'src/app/infra/services/snack-bar-service/snack-bar.service';
 import { FormRegisterControllerService } from '../../controllers/form-register-controller/form-register-controller.service';
 
 @Component({
@@ -29,7 +31,10 @@ export class FormRegisterComponent implements OnDestroy {
 
 	private submit$?: Subscription;
 
-	constructor(private formRegisterControllerService: FormRegisterControllerService) {}
+	constructor(
+		private formRegisterControllerService: FormRegisterControllerService,
+		private readonly snackbarService: SnackBarService
+	) {}
 
 	onSubmit(): void {
 		this.reactiveForm.disable();
@@ -38,7 +43,8 @@ export class FormRegisterComponent implements OnDestroy {
 			next: () => {
 				alert('sucesso');
 			},
-			error: () => {
+			error: (error: ErrorMessage[]) => {
+				this.snackbarService.show(error[0].message);
 				this.reactiveForm.enable();
 			},
 			complete: () => {

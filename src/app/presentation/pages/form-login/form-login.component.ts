@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs';
 import { ErrorMessage } from 'src/app/core/interfaces/ErrorMessage';
 import { GenericFormGroup } from 'src/app/core/interfaces/forms/GenericFormGroup';
 import { LoginFields } from 'src/app/core/interfaces/forms/LoginFields';
+import { SnackBarService } from 'src/app/infra/services/snack-bar-service/snack-bar.service';
 import { FormLoginControllerService } from '../../controllers/form-login-controller/form-login-controller.service';
 
 @Component({
@@ -20,7 +21,11 @@ export class FormLoginComponent implements OnDestroy {
 
 	private submit$?: Subscription;
 
-	constructor(private formLoginControllerService: FormLoginControllerService, private router: Router) {}
+	constructor(
+		private formLoginControllerService: FormLoginControllerService,
+		private router: Router,
+		private readonly snackbarService: SnackBarService
+	) {}
 
 	onSubmit(): void {
 		this.reactiveForm.disable();
@@ -30,7 +35,7 @@ export class FormLoginComponent implements OnDestroy {
 				this.router.navigate(['home']);
 			},
 			error: (error: ErrorMessage[]) => {
-				alert(error[0].message);
+				this.snackbarService.show(error[0].message);
 				this.reactiveForm.enable();
 			},
 			complete: () => {

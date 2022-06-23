@@ -2,8 +2,34 @@
 @import 'reset';
 @import 'variables';
 @import 'mixins';
+@import 'snackbar';
 
 input::-ms-reveal,
 input::-ms-clear {
 	display: none;
+}
+
+.form {
+	display: flex;
+	flex-direction: column;
+
+	max-width: 400px;
+
+	@include device(sm) {
+		max-width: 100%;
+	}
+
+	@include device(lg) {
+		max-width: 400px;
+	}
+}
+
+.form__footer {
+	display: flex;
+	justify-content: space-between;
+	color: lighten($primary-color-dark, 10);
+}
+
+a.form__link {
+	color: lighten($primary-color-dark, 10);
 }
