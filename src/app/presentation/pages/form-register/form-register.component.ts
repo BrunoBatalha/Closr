@@ -11,7 +11,7 @@ import { FormRegisterControllerService } from '../../controllers/form-register-c
 @Component({
 	selector: 'app-register',
 	templateUrl: './form-register.component.html',
-	styleUrls: ['./form-register.component.scss']
+	styleUrls: []
 })
 export class FormRegisterComponent implements OnDestroy {
 	private readonly passwordValidatorCommons = [

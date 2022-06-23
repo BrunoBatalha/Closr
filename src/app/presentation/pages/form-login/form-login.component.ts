@@ -11,7 +11,7 @@ import { FormLoginControllerService } from '../../controllers/form-login-control
 @Component({
 	selector: 'app-login',
 	templateUrl: './form-login.component.html',
-	styleUrls: ['./form-login.component.scss']
+	styleUrls: []
 })
 export class FormLoginComponent implements OnDestroy {
 	reactiveForm: GenericFormGroup<LoginFields> = new FormGroup({
