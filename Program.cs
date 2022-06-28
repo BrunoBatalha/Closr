@@ -16,9 +16,8 @@ using Lokin_BackEnd.Infra.Repositories;
 using Lokin_BackEnd.Repositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Mvc.Authorization;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Any;
 using Microsoft.OpenApi.Models;
@@ -30,9 +29,7 @@ internal class Program
     {
         var builder = WebApplication.CreateBuilder(args);
         ConfigureServices(builder.Services);
-
         ConfigureDependencyInjection(builder.Services);
-
         ConfigureApplication(builder.Build());
     }
 
@@ -51,15 +48,15 @@ internal class Program
         app.UseMiddleware<RefreshTokenMiddleware>();
 
         // Configure the HTTP request pipeline.
-        if (app.Environment.IsDevelopment())
+        // if (app.Environment.IsDevelopment())
+        // {
+        app.UseSwagger();
+        app.UseSwaggerUI(options =>
         {
-            app.UseSwagger();
-            app.UseSwaggerUI(options =>
-            {
-                options.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
-                options.RoutePrefix = string.Empty;
-            });
-        }
+            options.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
+            options.RoutePrefix = string.Empty;
+        });
+        // }
 
         app.UseHttpsRedirection();
 

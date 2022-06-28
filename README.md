@@ -4,8 +4,9 @@
 
 -   [Frontend em Angular](https://github.com/BrunoBatalha/Lokin-FrontEnd)
 -   ASP.NET Core
--   SQLite
+-   MySQL
 -   Entity Framework Core
+-   Docker
 
 ### Descrição
 
