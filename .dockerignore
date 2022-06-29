@@ -1,0 +1,12 @@
+node_modules
+dist/
+.husky
+.vscode
+README.md
+.editorconfig
+.eslintrc.json
+.gitignore
+.prettierrc
+.git/
+
+**/node_modules
