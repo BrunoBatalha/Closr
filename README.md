@@ -36,6 +36,16 @@ Foram utilizados itens como:
 - ESLint
 - Prettier
 
+### Docker
+
+Para o arquivo `docker-compose.yml` funcionar corretamente é interessante deixa-lo em um nivél a cima da pasta do [backend](https://github.com/BrunoBatalha/Lokin-BackEnd) para conseguir encontrar o diretório e criar as tabelas necessárias.
+
+Com o docker instalado, execute:
+
+```
+docker compose up -d
+```
+
 ### Outros
 
 Hospedado na [Vercel](https://lokin-front-end.vercel.app/) (sem backend)
