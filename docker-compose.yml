@@ -30,7 +30,7 @@ services:
         depends_on:
             - mysql
     frontend:
-      image: "brunobatalha/lokin-frontend:1.0"
+      image: "brunobatalha/lokin-frontend:latest"
       build:
         context: "./Lokin-FrontEnd"
         dockerfile: Dockerfile
