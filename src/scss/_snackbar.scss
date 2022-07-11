@@ -4,13 +4,20 @@
 	position: fixed;
 	width: 100px;
 	left: 20px;
-	background: $danger-color;
 	color: $neutral-color;
 	min-width: 450px;
 	overflow-wrap: break-word;
 	padding: 20px;
 	bottom: 30px;
 	opacity: 1;
+}
+
+.snackbar--danger {
+	background: $danger-color;
+}
+
+.snackbar--success {
+	background: $success-color;
 }
 
 .snackbar--show {

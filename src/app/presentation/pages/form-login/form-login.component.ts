@@ -35,7 +35,7 @@ export class FormLoginComponent implements OnDestroy {
 				this.router.navigate(['home']);
 			},
 			error: (error: ErrorMessage[]) => {
-				this.snackbarService.show(error[0].message);
+				this.snackbarService.show(error[0].message, 'danger');
 				this.reactiveForm.enable();
 			},
 			complete: () => {
