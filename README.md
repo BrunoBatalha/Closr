@@ -38,7 +38,7 @@ Foram utilizados itens como:
 
 ### Docker
 
-Para o arquivo `docker-compose.yml` funcionar corretamente é interessante deixa-lo em um nivél a cima da pasta do [backend](https://github.com/BrunoBatalha/Lokin-BackEnd) para conseguir encontrar o diretório e criar as tabelas necessárias.
+Para o arquivo `docker-compose.yml` funcionar corretamente é interessante deixa-lo em um nível a cima da pasta do [backend](https://github.com/BrunoBatalha/Lokin-BackEnd) para conseguir encontrar o diretório e criar as tabelas necessárias.
 
 Com o docker instalado, execute:
 
