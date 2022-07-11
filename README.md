@@ -19,3 +19,13 @@ Foi pensando também em alguns casos de segurança:
 
 1. **caso um invasor tivesse acesso ao token do usuário legítimo**: o acesso seria negado pois o refresh token estaria vazio, e o middleware barraria.
 2. **caso um invasor tivesse acesso ao refresh token e token do usuário legítimo**: nesse cenário um dos usuários acabaria fazendo uma requisição com o refresh token antigo, o que faria com que o middleware não encontrasse algum dos refresh tokens enviados, então por não conseguir identificar quem seria o usuário legítimo, o sistema remove do banco o refresh token do usuário em questão, tornando todas as próximas requisições inválidas, sendo necessário fazer login novamente com as credenciais que somente o usuário legítimo deve possuir.
+
+### Docker
+
+Para o arquivo `docker-compose.yml` funcionar corretamente é interessante deixa-lo em um nivél a cima da pasta do [backend](https://github.com/BrunoBatalha/Lokin-BackEnd) para conseguir encontrar o diretório e criar as tabelas necessárias.
+
+Com o docker instalado, execute:
+
+```
+docker compose up -d
+```
