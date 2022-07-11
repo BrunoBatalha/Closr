@@ -1,3 +1,17 @@
 <div class="container">
-    <h1>Logado</h1>
+    <h1>Authenticated</h1>
+    <div class="info">
+        <span>Id:</span>
+        <span>{{user?.id}}</span>
+    </div>
+    <div class="info">
+        <span>Username:</span>
+        <span>{{user?.username}}</span>
+    </div>
+    <div class="info">
+        <span>Email:</span>
+        <span>{{user?.email}}</span>
+    </div>
+
+    <app-button (click)="refresh()">Reload page</app-button>
 </div>

@@ -3,11 +3,23 @@
 .container {
 	min-height: 100vh;
 	background-color: $primary-color;
-	color: $neutral-color
+	color: $neutral-color;
+	overflow-wrap: break-word;
+	padding: 20px 30px;
+	font-size: 2rem;
+	line-height: 2rem;
 }
 
 h1 {
-	font-size: 36px;
 	text-align: center;
-	padding-top: 10px;
+	margin-bottom: 30px;
+}
+
+.info {
+	margin-bottom: 10px;
+
+	& span:first-of-type {
+		font-weight: bold;
+		margin-right: 10px;
+	}
 }

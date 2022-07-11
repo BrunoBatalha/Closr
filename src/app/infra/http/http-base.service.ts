@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { catchError, Observable } from 'rxjs';
 import { ErrorMessage } from 'src/app/core/interfaces/ErrorMessage';
 import { environment } from 'src/environments/environment';
+import { ERROR_MESSAGES } from '../constants/ErrorMessages';
 
 type Params = HttpParams | { [param: string]: string | number | boolean | ReadonlyArray<string | number | boolean> };
 type Header = HttpHeaders | { [header: string]: string | string[] };
@@ -53,7 +54,14 @@ export class HttpBaseService {
 				if (e.status === 0) {
 					throw [{ code: '0', message: e.message }] as ErrorMessage[];
 				} else {
-					throw e.error as ErrorMessage[];
+					let errors = e.error as ErrorMessage[];
+					errors = errors.map((e) => {
+						return {
+							code: e.code,
+							message: ERROR_MESSAGES[e.code as keyof typeof ERROR_MESSAGES]
+						};
+					});
+					throw errors;
 				}
 			})
 		);
