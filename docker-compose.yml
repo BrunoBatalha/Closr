@@ -19,7 +19,7 @@ services:
             - MYSQL_DATABASE=app
             - bind-address=0.0.0.0
     api:
-        image: "brunobatalha/lokin-backend:latest"
+        # image: "brunobatalha/lokin-backend:latest"
         build:
           context: "./Lokin-BackEnd"
           dockerfile: Dockerfile
@@ -30,11 +30,13 @@ services:
         depends_on:
             - mysql            
     frontend:
-      image: "brunobatalha/lokin-frontend:latest"
-      build:
-        context: "./Lokin-FrontEnd"
-        dockerfile: Dockerfile
-      ports:
-        - 3000:80   
-      depends_on:
-        - api
+        # image: "brunobatalha/lokin-frontend:latest"
+        build:
+            context: "./Lokin-FrontEnd"
+            dockerfile: Dockerfile
+            args:
+                - ENV=development
+        ports:
+            - 3000:80   
+        depends_on:
+            - api
