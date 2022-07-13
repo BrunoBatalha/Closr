@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { ErrorMessage } from 'src/app/core/interfaces/ErrorMessage';
 import { RegisterFields } from 'src/app/core/interfaces/forms/RegisterFields';
 
 @Injectable({
@@ -11,7 +12,11 @@ export class CreateUserValidatorService {
 			if (fields.password === fields.confirmPassword) {
 				subscriber.next();
 			} else {
-				subscriber.error();
+				const error: ErrorMessage = {
+					code: '',
+					message: 'Passwords do not match'
+				};
+				subscriber.error([error]);
 			}
 			subscriber.complete();
 		});
