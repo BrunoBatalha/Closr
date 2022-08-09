@@ -29,3 +29,6 @@ Com o docker instalado, execute:
 ```
 docker compose up -d
 ```
+
+### Vídeo
+[Link](https://www.linkedin.com/posts/bruno-batalha-_aff-todo-mundo-sempre-cria-um-projeto-de-activity-6957751810031800321-sYtd?utm_source=linkedin_share&utm_medium=member_desktop_web)
