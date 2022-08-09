@@ -84,3 +84,6 @@ Interface baseado em uma UI do [Dribbble](https://dribbble.com/shots/1357705-Clo
     | - [+] shared
     | - presentation.module.ts
 ```
+
+### Vídeo
+[Link](https://www.linkedin.com/posts/bruno-batalha-_aff-todo-mundo-sempre-cria-um-projeto-de-activity-6957751810031800321-sYtd?utm_source=linkedin_share&utm_medium=member_desktop_web)
