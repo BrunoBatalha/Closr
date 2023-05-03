@@ -1,0 +1,42 @@
+version: '1.0'
+
+volumes:
+    appdata:
+
+networks:
+    backend:
+
+services:
+    mysql:
+        image: "mysql:5.7"
+        volumes:
+            - appdata:/var/lib/mysql
+            - ./Lokin-BackEnd/_MySQL_Init_Script:/docker-entrypoint-initdb.d
+        networks:
+            - backend
+        environment:
+            - MYSQL_ROOT_PASSWORD=root
+            - MYSQL_DATABASE=app
+            - bind-address=0.0.0.0
+    api:
+        # image: "brunobatalha/lokin-backend:latest"
+        build:
+          context: "./Lokin-BackEnd"
+          dockerfile: Dockerfile
+        networks:
+            - backend
+        ports:
+            - 5000:80
+        depends_on:
+            - mysql            
+    frontend:
+        # image: "brunobatalha/lokin-frontend:latest"
+        build:
+            context: "./Lokin-FrontEnd"
+            dockerfile: Dockerfile
+            args:
+                - ENV=development
+        ports:
+            - 80:80   
+        depends_on:
+            - api
