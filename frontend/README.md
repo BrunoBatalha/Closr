@@ -1,4 +1,4 @@
-# Lokin-FrontEnd
+# Closr-FrontEnd
 
 ### Tecnologias
 
